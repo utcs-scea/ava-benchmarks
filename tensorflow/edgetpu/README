@@ -1,0 +1,8 @@
+# Generate C wrapper
+
+The wrapper is written with SWIG.
+
+# Set guestlib path
+
+Please update the path to Python guestlib in `demo/classify_image.py`
+and `demo/object_detection.py`.
