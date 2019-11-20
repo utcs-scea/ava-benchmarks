@@ -1,0 +1,27 @@
+#!/bin/bash
+
+OUTPUT=result.txt
+
+exe() { echo "++ $@" |& tee -a $OUTPUT; \
+    $@ |& tee -a $OUTPUT; }
+
+echo -n > $OUTPUT # clean output file
+echo "$(date) # running inference_c"
+make clean && make
+
+for idx in `seq 1 15`; do
+    exe ./inference.out
+    exe echo
+done
+exe echo
+echo
+
+# parse
+echo -n "Average time: "
+grep "^Total time" $OUTPUT | \
+    awk '{ total += $4; count++ } END {
+           if (count > 0)
+               print total/count;
+           else
+               print -1
+         }'
