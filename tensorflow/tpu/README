@@ -1,0 +1,4 @@
+This benchmark can only run on Google Cloud with TPU instance.
+
+The remoting infrastructure is implemented manually with AvA API-agnostic
+components. It is not actively under development or test.
