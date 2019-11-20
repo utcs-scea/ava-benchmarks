@@ -1,0 +1,33 @@
+# Install movidius SDK
+
+```
+$ git clone -b ncsdk2 http://github.com/Movidius/ncsdk && cd ncsdk && make install
+```
+
+Please export `AVA_ROOT=/path/to/ava/source/tree`.
+
+Be careful when looking at the API ref (mvnc.h) online. There are significant differences between the v1 and v2 APIs.
+
+# Build Movidius benchmark
+
+If you've already exported a frozen .pb graph file, run
+
+```
+$ mvNCCompile -s 12 ./data/inception_v3_2016_08_28_frozen.pb -in=input -on=InceptionV3/Predictions/Reshape_1
+```
+
+This will convert the frozen tensorflow network into the format that movidius expects. Output file: graph
+
+```
+$ mv graph data/imagenet_v3_movidius.graph
+```
+
+Alternatively, run `./gen_graph.sh`.
+
+# Run demo_movidius as follows:
+
+```
+$ ./demo_movidious ./data/imagenet_v3_movidius.graph data/imagenet_slim_labels.txt data/grace_hopper.jpg	
+```
+
+or `./run_movidius.sh`. To test the benchmark, run `./test_movidius.sh`.
