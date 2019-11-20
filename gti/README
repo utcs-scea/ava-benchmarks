@@ -1,0 +1,11 @@
+# Environment
+
+```
+export GTISDKROOT=/path/to/compiled/gtisdk
+export AVA_ROOT=/path/to/ava/source/tree
+```
+
+# Demo benchmarks
+
+* liteDemo
+* PipelineDemo

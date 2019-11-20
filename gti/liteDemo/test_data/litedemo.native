@@ -1,0 +1,54 @@
+../Models/2803/gti_mnet_fc40_2803.model ../Data/Image_bmp_c1000/beach.bmp
+0 0: 17.683 17.683
+1 0: 18.055 35.738
+2 0: 18.556 54.294
+3 0: 17.242 71.536
+4 0: 12.21 83.746
+Average 16.749ms per frame
+Average 412.400ms per run
+
+../Models/2803/gti_mnet_fc40_2803.model ../Data/Image_bmp_c20/aquarium.jpg
+0 0: 32.44 32.44
+1 0: 34.213 66.653
+2 0: 23.836 90.489
+3 0: 30.207 120.696
+4 0: 29.921 150.617
+Average 30.123ms per frame
+Average 413.400ms per run
+
+../Models/2803/gti_mnet_fc40_2803.model ../Data/Image_bmp_c40/Coffe.jpg
+0 0: 45.564 45.564
+1 0: 50.175 95.739
+2 0: 49.888 145.627
+3 0: 54.593 200.220
+4 0: 50.118 250.338
+Average 50.067ms per frame
+Average 414.800ms per run
+
+../Models/2803/gti_resnet18_2803.model ../Data/Image_bmp_c1000/beach.bmp
+0 0: 15.672 15.672
+1 0: 11.881 27.553
+2 0: 16.992 44.545
+3 0: 13.684 58.229
+4 0: 12.691 70.920
+Average 14.184ms per frame
+Average 413.400ms per run
+
+../Models/2803/gti_resnet18_2803.model ../Data/Image_bmp_c20/aquarium.jpg
+0 0: 32.559 32.559
+1 0: 33.343 65.902
+2 0: 30.259 96.161
+3 0: 26.56 122.721
+4 0: 32.723 155.444
+Average 31.088ms per frame
+Average 413.600ms per run
+
+../Models/2803/gti_resnet18_2803.model ../Data/Image_bmp_c40/Coffe.jpg
+0 0: 45.989 45.989
+1 0: 48.076 94.065
+2 0: 48.119 142.184
+3 0: 52.037 194.221
+4 0: 50.059 244.280
+Average 48.856ms per frame
+Average 416.200ms per run
+
