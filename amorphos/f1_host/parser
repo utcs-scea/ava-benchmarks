@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+OUTPUT=result.txt
+
+echo -n "Average time: "
+grep "^Total time" $OUTPUT | \
+    grep -Eo '[+-]?[0-9]+([.][0-9]+)?' | \
+    awk '{ total += $0; count++ } END {
+           if (count > 0)
+               print total/count;
+           else
+               print -1
+         }'

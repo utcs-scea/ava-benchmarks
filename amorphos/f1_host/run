@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+OUTPUT=result.txt
+
+exe() { echo "++ $@" |& tee -a $OUTPUT ; \
+    $@ |& tee -a $OUTPUT ; }
+
+echo -n > $OUTPUT # clean output file
+echo "$(date) # running BitCoin"
+
+LD_LIBRARY_PATH=. 
+for idx in `seq 1 15`; do
+    sudo rm /tmp/aos_daemon.socket
+    printf "\n" | sudo ./daemon
+    sudo fpga-load-local-image -S 0 -I agfi-0b3728e121099288e
+    exe ./ava_bitcoin_client 0
+    exe echo
+done

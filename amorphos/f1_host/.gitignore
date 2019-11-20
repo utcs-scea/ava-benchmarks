@@ -1,0 +1,6 @@
+*.swp
+bitcoin_client
+ava_bitcoin_client
+client
+*.so
+memdrive_client

@@ -1,0 +1,56 @@
+{
+    "images" : [
+        {
+            "description" : "8 DNNWeavers",
+            "afi" :  "afi-066a27e763d7666df",
+            "agfi" : "agfi-0b2652bbc7b28bb43",
+            "num_apps" : 8,
+            "slots" : [
+                {
+                    "slot_id" : 0,
+                    "app_id" : "dnn_weaver_v0"
+                },
+                {
+                    "slot_id" : 1,
+                    "app_id" : "dnn_weaver_v0"
+                },
+                {
+                    "slot_id" : 2,
+                    "app_id" : "dnn_weaver_v0"
+                },
+                {
+                    "slot_id" : 3,
+                    "app_id" : "dnn_weaver_v0"
+                },
+                {
+                    "slot_id" : 4,
+                    "app_id" : "dnn_weaver_v0"
+                },
+                {
+                    "slot_id" : 5,
+                    "app_id" : "dnn_weaver_v0"
+                },
+                                {
+                    "slot_id" : 6,
+                    "app_id" : "dnn_weaver_v0"
+                },
+                {
+                    "slot_id" : 7,
+                    "app_id" : "dnn_weaver_v0"
+                }
+            ]
+        },
+        {
+            "description" : "1 MemDrive",
+            "afi" :  "afi-0331b84d4c67e65d2",
+            "agfi" : "agfi-0c0657b6083fac971",
+            "num_apps" : 1,
+            "slots" : [
+                {
+                    "slot_id" : 0,
+                    "app_id" : "memdrive_v0"
+                }
+            ]
+        }
+    ]
+}
