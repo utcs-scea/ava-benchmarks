@@ -1,0 +1,7 @@
+*.o
+*.so
+*.a
+*.swp
+/Makefile
+utils/qzip
+

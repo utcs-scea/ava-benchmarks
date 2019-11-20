@@ -1,0 +1,55 @@
+# Install drivers
+
+[Drivers and installation guides](https://01.org/intel-quickassist-technology)
+
+Make sure `$ICP_ROOT` (path to QAT build path) and `$AVA_ROOT` (path to
+AvA source tree) have been exported correctly.
+
+# Setup huge page for QATzip
+
+```bash
+# echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+# rmmod usdm_drv
+# insmod $ICP_ROOT/build/usdm_drv.ko max_huge_pages=1024 max_huge_pages_per_process=400
+# service qat_service restart
+# service qat_service_vfs restart (if SR-IOV is enabled)
+```
+
+Before the first time to start QAT service, you may need to copy config
+files:
+
+```bash
+# cp $QATZIP_ROOT/config_file/c6xx/multiple_thread_opt/c6xx_dev0.conf /etc/
+# cp $QATZIP_ROOT/config_file/c6xx/multiple_thread_opt/c6xx_dev1.conf /etc/
+# cp $QATZIP_ROOT/config_file/c6xx/multiple_thread_opt/c6xx_dev2.conf /etc/
+```
+
+# Build QATzip
+
+```bash
+$ ./configure --with-ICP_ROOT=$ICP_ROOT
+$ cd QATzip-sync && make
+```
+
+# Run QATzip
+
+Unpack dataset:
+
+```bash
+$ ./setup.sh
+```
+
+Run without AvA:
+
+```bash
+## In QATzip-sync/util
+$ ./qzip -k ../../silesia/dickens
+```
+
+Run with AvA:
+
+```bash
+## In QATzip-sync/util
+$ ln -s ${AVA_ROOT}/cava/cpa_nw/libguestlib.so libqat_s.so
+$ LD_LIBRARY_PATH=. ./qzip -k ../../silesia/dickens
+```
