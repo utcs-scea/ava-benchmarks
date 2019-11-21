@@ -1,0 +1,24 @@
+# Download dataset
+
+Please download the dataset contained in
+[Rodinia 3.1](http://lava.cs.virginia.edu/Rodinia/download_links.htm).
+
+# Environment variables
+
+Set `$AVA_ROOT` to the path to AvA source tree.
+Set the environment variables in scripts/environments, including dataset path,
+AvA modes, etc.
+
+The library paths in `opencl/util/make.mk` and `cuda/util/nvidia.mk` need to
+set appropriately.
+
+# Run benchmarks
+
+In `scripts/`, `test_cl.sh` is used to run all OpenCL benchmarks and
+`test_cu.sh` is for CUDA benchmarks. `parse.sh` is used to compute the
+average end-to-end execution time.
+
+# Run individual benchmarks
+
+Every benchmark has a `run` bash script in their corresponding directory.
+Simply execute the script to run the benchmark.
