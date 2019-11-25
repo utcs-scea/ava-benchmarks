@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$DATA_DIR" ]
+then
+    export DATA_DIR=/project/gpu-rodinia/data
+fi
+
+echo "__cudaRegisterVar is not yet supported by AvA"
+./heartwall ${DATA_DIR}/heartwall/test.avi 100

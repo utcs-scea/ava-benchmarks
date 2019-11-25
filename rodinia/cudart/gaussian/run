@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$DATA_DIR" ]
+then
+    export DATA_DIR=/project/gpu-rodinia/data
+fi
+
+#./gaussian -f ${DATA_DIR}/gaussian/matrix4.txt
+./gaussian -s 2048

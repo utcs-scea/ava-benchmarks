@@ -8,6 +8,7 @@ bm=`ls $OUTDIR`
 TMPFILE=$DIR/.tmp
 
 cd $OUTDIR
+echo "OpenCL"
 echo -n "GPU,"; echo $col | tr ' ' ','
 for b in $bm; do
     echo -n ${b::-4}
@@ -35,6 +36,8 @@ bm=`ls $OUTDIR`
 TMPFILE=$DIR/.tmp
 
 cd $OUTDIR
+echo
+echo "CUDA"
 echo -n "GPU,"; echo $col | tr ' ' ','
 for b in $bm; do
     echo -n ${b::-4}
