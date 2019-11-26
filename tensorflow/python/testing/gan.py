@@ -27,7 +27,7 @@ start = time.time()
 import tensorflow as tf
 tf_load = time.time()
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 
 # Import MNIST data
