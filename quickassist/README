@@ -1,11 +1,25 @@
-# Install drivers
+Install drivers
+===============
 
-[Drivers and installation guides](https://01.org/intel-quickassist-technology)
+Download drivers and follow installation guides:
+https://01.org/intel-quickassist-technology
 
 Make sure `$ICP_ROOT` (path to QAT build path) and `$AVA_ROOT` (path to
 AvA source tree) have been exported correctly.
 
-# Setup huge page for QATzip
+Generate guestlib and API server
+================================
+
+The specification for QAT is kept in `$AVA_ROOT/cava/samples/qat.nw.c`.
+
+```
+$ cd $AVA_ROOT/cava
+$ ./nwcc samples/qat.nw.c
+$ cd cpa_nw && make R=1
+```
+
+Setup huge page for QATzip
+==========================
 
 ```bash
 # echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages

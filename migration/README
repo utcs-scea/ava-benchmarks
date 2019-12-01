@@ -1,0 +1,67 @@
+API server migration demo
+=========================
+
+Specification annotations
+-------------------------
+
+`ava_cflags(-DAVA_RECORD_REPLAY)` enables the record-and-replay feature
+in AvA API specification.
+
+To record the API call for an object, annotate the object with
+`ava_object_record`. For example, `clReleaseProgram` will be recorded
+to release the object OpenCL `program` during replay:
+
+```
+cl_int
+clReleaseProgram(cl_program program)
+{
+    ava_argument(program) { ava_deallocates; ava_object_record; }
+}
+```
+
+To annotate the dependencies between objects, annotate them with
+`ava_depends_on`. For example, `command_queue` depends on `context`
+and `device` objects, so the creation of `command_queue` will be
+after the others, and destroy will be before during replay.
+
+```
+cl_command_queue
+clCreateCommandQueue(cl_context                  context,
+                     cl_device_id                device,
+                     cl_command_queue_properties properties,
+                     cl_int *                    errcode_ret)
+{
+    ava_return_value {
+        ava_allocates;
+        ava_object_depends_on(context);
+        ava_object_depends_on(device);
+        ava_object_record;
+    }
+}
+```
+
+Benchmarking
+------------
+
+The migration is demoed with OpenCL benchmarks. The specification is
+`$AVA_ROOT/cava/samples/opencl.nw.c`.
+
+Define cflag `AVA_BENCHMARKING_MIGRATE` in the specification to enable
+the migration benchmarking. An invocation will be selected to start
+the migration benchmarking: Set environment variable  `AVA_MIGRATION_CALL_ID`
+to `r<limit>` (such as `r100`) to choose a random call, and to `<count>` to
+choose a specified call.
+
+The benchmark demos the migration of API server between machines. The source
+and target API servers are connected via TCP channel. To start the target
+API server, run
+
+```
+## In $AVA_ROOT/worker
+$ sudo -E ./worker migrate 4001·
+```
+
+`4001` is the listening port of target API server which should match the
+source API worker's ID (or port). Then run any benchmarks in
+`ava-benchmarks/migration`. The process is written in automated scripts:
+source `migration.sh`, target `loop_target_worker.sh`.

@@ -1,11 +1,33 @@
-# Environment
+Install
+=======
+
+Install GTI SDK from
+https://dev.gyrfalcontech.ai/software-downloads/
+
+We tested GTI SDK (2803) 4.4.0.3. The newer version (e.g.,
+4.5.0.3 at the time of writing) should also work.
+
+Generate API server and guest library using
+`$AVA_ROOT/cava/samples/gti.nw.cpp`.
+
+Environment
+===========
+
+Setup environment variables for GTI SDK and AvA:
 
 ```
 export GTISDKROOT=/path/to/compiled/gtisdk
 export AVA_ROOT=/path/to/ava/source/tree
 ```
 
-# Demo benchmarks
+`AVA_CHANNEL` and `AVA_WPOOL` are set in the same way as other
+benchmarks.
+
+Demo benchmarks
+===============
+
+Simply run `benchmark.sh` in the following two benchmark
+directories:
 
 * liteDemo
 * PipelineDemo

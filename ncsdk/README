@@ -8,6 +8,28 @@ Please export `AVA_ROOT=/path/to/ava/source/tree`.
 
 Be careful when looking at the API ref (mvnc.h) online. There are significant differences between the v1 and v2 APIs.
 
+# Install on Ubuntu 18.04
+
+At the time of writing, only Ubuntu 16.04 LTS is supported for NCSDK v2, and
+Ubuntu 18.04 is being evaluated. Follow the following steps to install NCSDK v2 on
+Ubuntu 18.04.
+    
+* Hack OS check at line 32 of install.sh; change the `1604` number to `1804`.
+```
+if [ "${OS_DISTRO,,}" = "ubuntu" ] && [ ${OS_VERSION} = 1604 ]; then
+    [ "${VERBOSE}" = "yes" ] && echo "Installing on Ubuntu 16.04"
+```
+
+* Disable Caffe installation in ncsdk.conf.
+```
+NSTALL_CAFFE=no
+```
+
+* Install Caffe
+```
+$ sudo apt install caffe-cpu
+```
+
 # Build Movidius benchmark
 
 If you've already exported a frozen .pb graph file, run
