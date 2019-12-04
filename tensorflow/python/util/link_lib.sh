@@ -3,10 +3,12 @@
 if [ -z "$AVA_ROOT" ]
 then
     echo "AVA_ROOT is not set"
-    return
+    exit
 fi
 
-ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so libcuda.so.1
-ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so libcudart.so.10.0
-ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so libcudnn.so.7
-ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so libcublas.so.10.0
+BASEDIR=$(dirname "$0")
+
+ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so $BASEDIR/libcuda.so.1
+ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so $BASEDIR/libcudart.so.10.0
+ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so $BASEDIR/libcudnn.so.7
+ln -s $AVA_ROOT/cava/cudart_nw/libguestlib.so $BASEDIR/libcublas.so.10.0
