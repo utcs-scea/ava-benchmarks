@@ -1,3 +1,8 @@
+Unoptimized version
+===================
+
+TensorFlow virtualization uses the same specification for CUDART API (cudart.nw.c).
+
 # Download dataset
 
 The benchmark is tested with Python 3.6 and TensorFlow 1.14, CUDA 10.0,
@@ -9,9 +14,11 @@ $ python input_data.py
 
 # Link shared libraries
 
-To run with AvA:
+To link the guestlib and run with AvA:
 
 ```bash
+$ ./util/link_lib.sh
+or
 $ ln -s ${AVA_ROOT}/cava/cudart_nw/libguestlib.so libcudart.so.10.0
 $ ln -s ${AVA_ROOT}/cava/cudart_nw/libguestlib.so libcuda.so.1
 $ ln -s libcuda.so.1 libcudnn.so.7
@@ -21,9 +28,72 @@ $ ln -s libcuda.so.1 libcublas.so.10.0
 # Run benchmark
 
 ```bash
-LD_LIBRARY_PATH=. python demo.py
+LD_LIBRARY_PATH=util python demo.py
 ```
 
 # Test benchmark
 
-Run `./tester.sh`.
+Run `LD_LIBRARY_PATH=util ./tester.sh`.
+
+Optimized version
+=================
+
+We optimized loading TensorFlow library and forwarding specific patterns of API calls.
+
+Dump CUDA fat binaries in TensorFlow
+------------------------------------
+
+Generate a special API remoting stub to dump the CUDA fat binaries integrated in TensorFlow.
+```
+## In $AVA_ROOT/cava
+$ ./nwcc samples/cudart.dump.c \
+  -I headers
+  -I /usr/local/cuda-10.0/include \
+  `pkg-config --cflags glib-2.0`
+## In In $AVA_ROOT/cava/cudart_nw
+$ make clean && make R=1
+## In $AVA_ROOT/cava/vm
+$ ./setup.sh cudart_nw
+## In $AVA_ROOT/worker
+$ ln -s $AVA_ROOT/cava/cudart_nw/worker worker
+```
+
+Start API server manager and run any TensorFlow program with the special stub in guest:
+```
+## In $AVA_ROOT/benchmark/tensorflow/python
+$ LD_LIBRARY_PATH=util python3 kmeans.py
+```
+
+This step will generate a few hundred \lstinline|cubin| dumps in \lstinline|/tmp| in both host and guest.
+
+Setup optimized version
+-----------------------
+
+Then generate the optimized version:
+```
+## In $AVA_ROOT/cava
+$ ./nwcc samples/cudart.opt.c \
+-I headers
+-I /usr/local/cuda-10.0/include \
+`pkg-config --cflags glib-2.0`
+## Repeat other steps mentioned above
+```
+
+Run benchmarks as instructed in \ref{run_tf}:
+```
+$ source /home/hyu/venv-tf1.14/bin/activate
+## In (guest) $AVA_ROOT/benchmark/tensorflow/python
+$ python3 input_data.py
+$ LD_LIBRARY_PATH=util python3 demo.py
+$ deactivate
+```
+
+The optimized TensorFlow virtualization is more stable and better tested than the unoptimized one.
+Besides the 5 basic TensorFlow programs, it also supports other benchmarks such as neural networks:
+```
+## In (guest) $AVA_ROOT/benchmark/tensorflow/python
+$ LD_LIBRARY_PATH=util python3 testing/logistic_regression.py
+$ LD_LIBRARY_PATH=util python3 testing/neural_network.py
+$ LD_LIBRARY_PATH=util python3 testing/recurrent_network.py
+$ LD_LIBRARY_PATH=util python3 testing/resnet_classify.py
+```
