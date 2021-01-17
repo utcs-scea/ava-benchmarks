@@ -2,9 +2,12 @@
 #define __AVA_AOS_WRAPPER_H__
 
 #ifndef __CAVA__
-#include "aos.h"
 
+#ifdef __cplusplus
+#include "aos.h"
 extern "C" {
+#endif
+
 #endif
 
 struct aos_client_wrapper;
@@ -15,7 +18,9 @@ int ava_cntrlreg_write(struct aos_client_wrapper *client_handle, uint64_t addr, 
 int ava_cntrlreg_read(struct aos_client_wrapper *client_handle, uint64_t addr, uint64_t *value);
 
 #ifndef __CAVA__
+#ifdef __cplusplus
 }
+#endif
 #endif
 
 #endif
